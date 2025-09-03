@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Teacher Daily Diary</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+</head>
+<body>
+  <header>
+    <div class="wrap row" style="align-items:center;">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>Teacher Daily Diary</h1>
+      </div>
+      <div style="flex:1"></div>
+      <button class="btn-ghost pill hidden" id="btnLogout" title="Sign out">Sign out</button>
+      <div id="clock" class="pill"></div>
+    </div>
+  </header>
+
+  <main class="wrap grid">
+    <!-- AUTH -->
+    <section id="authCard" class="card">
+      <h2 style="margin:6px 0 2px;">Sign in</h2>
+      <p class="muted" style="margin:0 0 12px;">Hello, welcome back! Sign in to continue.</p>
+      <div>
+        <label for="loginUser">Username</label>
+        <input id="loginUser" placeholder="e.g., user1" />
+      </div>
+      <div>
+        <label for="loginPass">Password</label>
+        <input id="loginPass" type="password" placeholder="•••••••" />
+      </div>
+      <div class="row" style="margin-top:12px;">
+        <button class="btn btn-primary" id="btnLogin">Login</button>
+      </div>
+      <p id="authMsg" class="muted" aria-live="polite" style="margin-top:8px;"></p>
+      <div class="right" style="margin-top:12px;">
+        <button class="btn-ghost" id="btnShowRegister">Register</button>
+      </div>
+    </section>
+
+    <!-- REGISTRATION -->
+    <section id="registerCard" class="card hidden">
+      <h2 style="margin:6px 0 2px;">Register</h2>
+      <p class="muted" style="margin:0 0 12px;">Create a new account.</p>
+      <div>
+        <label for="regName">Name</label>
+        <input id="regName" placeholder="Your full name" />
+      </div>
+      <div>
+        <label for="regMobile">Mobile Number</label>
+        <input id="regMobile" type="tel" placeholder="e.g., 9876543210" />
+      </div>
+      <div>
+        <label for="regEmail">Email</label>
+        <input id="regEmail" type="email" placeholder="e.g., you@example.com" />
+      </div>
+      <div>
+        <label for="regUser">Username</label>
+        <input id="regUser" placeholder="Choose a username" />
+      </div>
+      <div>
+        <label for="regPass">Password</label>
+        <input id="regPass" type="password" placeholder="•••••••" />
+      </div>
+      <div class="row" style="margin-top:12px;">
+        <button class="btn btn-primary" id="btnRegister">Register</button>
+      </div>
+      <p id="registerMsg" class="muted" aria-live="polite" style="margin-top:8px;"></p>
+      <div class="right" style="margin-top:12px;">
+        <button class="btn-ghost" id="btnShowLogin">Back to Login</button>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profileCard" class="card hidden">
+      <div class="row" style="align-items:center;">
+        <h2 style="margin:6px 0;">Teacher Profile</h2>
+        <div style="flex:1"></div>
+      </div>
+      <p class="muted" style="margin-top:-6px;">Fill once; you can update anytime.</p>
+      <div class="grid grid-2">
+        <div>
+          <label for="tName">Name of Teacher</label>
+          <input id="tName" placeholder="Your full name" />
+        </div>
+        <div>
+          <label for="tSubject">Main Subject</label>
+          <input id="tSubject" placeholder="e.g., Social Science" />
+        </div>
+        <div>
+          <label for="tEmail">Email Address</label>
+          <input id="tEmail" type="email" placeholder="e.g., user@example.com" />
+        </div>
+        <div>
+          <label for="tSchool">School Name</label>
+          <input id="tSchool" placeholder="e.g., Saint Michael's High School" />
+        </div>
+        <div>
+          <label for="tAcademicYear">Academic Year</label>
+          <input id="tAcademicYear" placeholder="e.g., 2024-2025" />
+        </div>
+      </div>
+      <div class="row" style="margin-top:12px;">
+        <button class="btn btn-primary" id="btnSaveProfile">Save Profile</button>
+        <button class="btn" id="btnResetProfile">Reset Profile</button>
+      </div>
+      <p id="profileMsg" class="muted" aria-live="polite" style="margin-top:8px;"></p>
+    </section>
+
+    <!-- DIARY ENTRY -->
+    <section id="diaryCard" class="card hidden">
+      <div class="row" style="align-items:center;">
+        <h2 style="margin:6px 0;">Daily Diary Entry</h2>
+        <div style="flex:1"></div>
+        <span class="pill" id="todayBadge">Today</span>
+      </div>
+
+      <div class="grid grid-3">
+        <div>
+          <label for="entryDate">Date</label>
+          <input id="entryDate" type="date" />
+        </div>
+        <div>
+          <label for="classSel">Class & Section</label>
+          <select id="classSel"></select>
+        </div>
+        <div>
+          <label for="periodSel">Period</label>
+          <select id="periodSel"></select>
+        </div>
+      </div>
+
+      <div class="grid grid-3">
+        <div>
+          <label for="subjectSel">Subject</label>
+          <input id="subjectSel" list="subjectList" placeholder="Select or type subject" />
+          <datalist id="subjectList">
+            <option>Social Science</option>
+            <option>Science</option>
+            <option>Mathematics</option>
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Sanskrit</option>
+            <option>Computer</option>
+            <option>EVS</option>
+            <option>GK</option>
+          </datalist>
+        </div>
+        <div>
+          <label for="topic">Topic Taught / Activity</label>
+          <input id="topic" placeholder="Lesson, chapter, activity name, etc." />
+        </div>
+        <div>
+          <label for="remarks">Remarks (optional)</label>
+          <input id="remarks" placeholder="Homework, assessment, special notes" />
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h3 style="margin:0 0 8px;">Attendance</h3>
+        <div class="grid grid-3">
+          <div>
+            <label for="strength">Total Strength</label>
+            <input id="strength" type="number" min="0" value="0" />
+          </div>
+          <div>
+            <label for="present">Present</label>
+            <input id="present" type="number" min="0" value="0" />
+          </div>
+          <div>
+            <label for="absent">AB (Absent)</label>
+            <input id="absent" type="number" min="0" value="0" />
+          </div>
+        </div>
+        <div class="grid grid-3">
+          <div>
+            <label for="late">L (Leave)</label>
+            <input id="late" type="number" min="0" value="0" />
+          </div>
+          <div>
+            <label for="sick">Sick</label>
+            <input id="sick" type="number" min="0" value="0" />
+          </div>
+          <div>
+            <label for="od">OD (On Duty)</label>
+            <input id="od" type="number" min="0" value="0" />
+          </div>
+        </div>
+        <div class="grid grid-3">
+          <div>
+            <label for="nr">NR (Not Reported)</label>
+            <input id="nr" type="number" min="0" value="0" />
+          </div>
+          <div>
+            <label for="other">Other</label>
+            <input id="other" type="number" min="0" value="0" />
+          </div>
+          <div>
+            <label>&nbsp;</label>
+            <button class="btn" id="btnAutoCalc" title="Auto-calc Present from breakdown">Auto-calc Present</button>
+          </div>
+        </div>
+        <p class="muted" id="attnMsg"></p>
+      </div>
+
+      <div class="row" style="margin-top:14px;">
+        <button class="btn btn-primary" id="btnSave">Save Entry</button>
+        <button class="btn" id="btnNew">New Entry</button>
+        <button class="btn btn-danger" id="btnClearAll">Clear All Data</button>
+      </div>
+      <p id="saveMsg" class="muted" aria-live="polite" style="margin-top:8px;"></p>
+    </section>
+
+    <!-- LOG -->
+    <section id="logCard" class="card hidden">
+      <div class="row" style="align-items:center;">
+        <h2 style="margin:6px 0;">Recent Entries</h2>
+        <div style="flex:1"></div>
+        <span class="pill pill-ghost" id="entryCount"></span>
+      </div>
+      <div style="overflow:auto;">
+        <table id="logTable" aria-label="Saved entries table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Class</th>
+              <th>Period</th>
+              <th>Subject</th>
+              <th>Topic / Activity</th>
+              <th>Present</th>
+              <th>Absent</th>
+              <th>Strength</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ADMIN PANEL -->
+    <section id="adminCard" class="card hidden">
+      <div class="row" style="align-items:center;">
+        <h2 style="margin:6px 0;">Admin Dashboard</h2>
+      </div>
+      <p class="muted" style="margin-top:-6px;">Manage user accounts.</p>
+      <div id="adminMsg" class="muted" style="margin-bottom: 8px;"></div>
+      <div style="overflow:auto;">
+        <table id="userTable" aria-label="User accounts table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="footer">This is a lightweight, single-file diary application (now modular). Ready for GitHub Pages.</div>
+
+  <script src="app.js" defer></script>
+  <script>
+    // register service worker if available
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('sw.js').catch(()=>{ /* ignore service worker failures */ });
+    }
+  </script>
+</body>
+</html>
